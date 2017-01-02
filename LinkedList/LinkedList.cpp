@@ -7,6 +7,8 @@ public:
 		int data;
 		Node* next;
 	};
+	void print2(Node*& head); //recursive 
+	void print3(Node*& head); //backwwards recursive 
 	void print(Node*& head);
 	Node* insert(Node*& head, int n, int place);
 	Node* remove(Node*& head, int place);
@@ -60,6 +62,23 @@ LinkedList::Node* LinkedList::remove(Node*& head, int place) {
 	return head;
 }
 
+void LinkedList::print2(Node*& head) {
+	if (head == NULL) {
+		cout << endl;
+		return;
+	}
+	cout << head->data << " ";
+	LinkedList::print2(head->next);
+}
+
+void LinkedList::print3(Node*& head) {
+	if (head == NULL) 
+		return;
+	LinkedList::print3(head->next);
+	cout << head->data << " ";
+}
+
+
 void LinkedList::print(Node*& head) {
 	Node* temp = head;
 	cout << "Elements are: ";
@@ -77,7 +96,8 @@ int main() {
 	list.head = list.insert(list.head, 4, 3);
 	list.head = list.insert(list.head, 1, 4);
 	list.head = list.insert(list.head, 12, 4);
-	list.print(list.head);
+	list.print2(list.head);
 	list.head = list.remove(list.head, 4);
-	list.print(list.head);
+	list.print2(list.head);
+	list.print3(list.head);
 }
