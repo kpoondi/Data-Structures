@@ -12,6 +12,7 @@ public:
 	void print_recursive_backwards(Node*& head); //backwards recursive print
 	Node* insert(Node*& head, int n, int place);
 	Node* remove(Node*& head, int place);
+	LinkedList::Node* reverseList(Node* head);
 	LinkedList();
 
 	//Member variables
@@ -87,6 +88,21 @@ void LinkedList::print(Node*& head) {
 	cout << endl;
 }
 
+LinkedList::Node* LinkedList::reverseList(Node* head) {
+    Node *current, *prev, *next;
+    prev = NULL;
+    current = head;
+
+    while (current != NULL) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    head = prev;
+    return head;
+}
+
 
 int main() {
 	LinkedList list = LinkedList();
@@ -99,6 +115,9 @@ int main() {
 	list.head = list.remove(list.head, 4);
 	list.print_recursive(list.head);
 	list.print_recursive_backwards(list.head);
+	list.head = list.reverseList(list.head);
+	cout << endl;
+	list.print(list.head);
 	cout << endl;
 }
 
