@@ -7,16 +7,15 @@ public:
 		int data;
 		Node* next;
 	};
-	void print2(Node*& head); //recursive 
-	void print3(Node*& head); //backwwards recursive 
+	void print_recursive(Node*& head); //recursive  print 
 	void print(Node*& head);
+	void print_recursive_backwards(Node*& head); //backwards recursive print
 	Node* insert(Node*& head, int n, int place);
 	Node* remove(Node*& head, int place);
 	LinkedList();
 
 	//Member variables
 	Node* head;
-
 };
 
 LinkedList::LinkedList() {
@@ -34,12 +33,12 @@ LinkedList::Node* LinkedList::insert(Node*& head, int n, int place) {
 		return head;
 	}
 
-	Node* temp2 = head;
+	Node* temp_insert = head;
 	for(int i = 0; i < place - 2; i++) {
-		temp2 = temp2->next;
+		temp_insert = temp_insert->next;
 	}
-	temp->next = temp2->next;
-	temp2->next = temp;
+	temp->next = temp_insert->next;
+	temp_insert->next = temp;
 
 	return head;
 }
@@ -56,38 +55,38 @@ LinkedList::Node* LinkedList::remove(Node*& head, int place) {
 	for(int i = 0; i < place - 2; i++) {
 		temp = temp->next;
 	}
-	Node* temp2 = temp->next;
-	temp->next = temp2->next;
-	delete temp2;
+	Node* temp_remove = temp->next;
+	temp->next = temp_remove->next;
+	delete temp_remove;
 	return head;
 }
 
-void LinkedList::print2(Node*& head) {
+void LinkedList::print_recursive(Node*& head) {
 	if (head == NULL) {
 		cout << endl;
 		return;
 	}
 	cout << head->data << " ";
-	LinkedList::print2(head->next);
+	LinkedList::print_recursive(head->next);
 }
 
-void LinkedList::print3(Node*& head) {
+void LinkedList::print_recursive_backwards(Node*& head) {
 	if (head == NULL) 
 		return;
-	LinkedList::print3(head->next);
+	LinkedList::print_recursive_backwards(head->next);
 	cout << head->data << " ";
 }
 
 
 void LinkedList::print(Node*& head) {
 	Node* temp = head;
-	cout << "Elements are: ";
 	while (temp != NULL) {
 		cout << temp->data << " ";
 		temp = temp->next;
 	}
 	cout << endl;
 }
+
 
 int main() {
 	LinkedList list = LinkedList();
@@ -96,8 +95,14 @@ int main() {
 	list.head = list.insert(list.head, 4, 3);
 	list.head = list.insert(list.head, 1, 4);
 	list.head = list.insert(list.head, 12, 4);
-	list.print2(list.head);
+	list.print_recursive(list.head);
 	list.head = list.remove(list.head, 4);
-	list.print2(list.head);
-	list.print3(list.head);
+	list.print_recursive(list.head);
+	list.print_recursive_backwards(list.head);
+	cout << endl;
 }
+
+
+
+
+
